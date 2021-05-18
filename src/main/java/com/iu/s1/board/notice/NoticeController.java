@@ -134,12 +134,18 @@ public class NoticeController {
 //	에러처리
 //	컨트롤러에 있는 메서드랑 같은 형식으로 만들기 void .. modelandview .. 가능
 //	@ExceptionHandler(예외객체명.class)
-//	public String ex1() {
+//	public ModelAndView ex1() {
 //		코드 진행
 //	}
 	@ExceptionHandler(ArithmeticException.class)
 	public String getMath(Model model) {
 		model.addAttribute("message", "수학 오류 발생");
+		return "error/500";
+	}
+					//에러세상에서 제일 큰 부모 (모든 에러의 ... 마마)
+	@ExceptionHandler(Throwable.class)
+	public String getException(Model model) {
+		model.addAttribute("message", "에러가 지속되면 관리자에게 문의하세요");
 		return "error/500";
 	}
 	
