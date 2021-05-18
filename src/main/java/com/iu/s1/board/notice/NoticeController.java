@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.iu.s1.board.BoardFileVO;
 import com.iu.s1.board.BoardVO;
 import com.iu.s1.member.MemberVO;
@@ -127,6 +129,18 @@ public class NoticeController {
 		int result = noticeService.setDelete(boardVO);
 		
 		return "redirect:./list";
+	}
+	
+//	에러처리
+//	컨트롤러에 있는 메서드랑 같은 형식으로 만들기 void .. modelandview .. 가능
+//	@ExceptionHandler(예외객체명.class)
+//	public String ex1() {
+//		코드 진행
+//	}
+	@ExceptionHandler(ArithmeticException.class)
+	public String getMath(Model model) {
+		model.addAttribute("message", "수학 오류 발생");
+		return "error/500";
 	}
 	
 
