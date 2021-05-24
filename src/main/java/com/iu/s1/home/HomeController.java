@@ -24,6 +24,9 @@ public class HomeController {
 		boardVO.setTitle("title");
 		boardVO.setWriter("writer");
 		
+		model.addAttribute("user", "mark");
+		model.addAttribute("msg", "markonyou");
+		
 		System.out.println(boardVO.toString());
 		return "index";
 	}
